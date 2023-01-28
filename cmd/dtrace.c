@@ -166,7 +166,9 @@ usage(FILE *fp)
 	    "\t-G  generate an ELF file containing embedded dtrace program\n"
 #endif
 	    "\t-h  generate a header file with definitions for static probes\n"
-	    "\t-H  print included files when invoking preprocessor\n"
+#ifndef _WIN32
+		"\t-H  print included files when invoking preprocessor\n"
+#endif
 	    "\t-i  enable or list probes matching the specified probe id\n"
 	    "\t-I  add include directory to preprocessor search path\n"
 	    "\t-l  list probes matching specified criteria\n"
@@ -184,7 +186,9 @@ usage(FILE *fp)
 	    "\t-V  report DTrace API version\n"
 	    "\t-w  permit destructive actions\n"
 	    "\t-x  enable or modify compiler and tracing options\n"
-	    "\t-X  specify ISO C conformance settings for preprocessor\n"
+#ifndef _WIN32
+		"\t-X  specify ISO C conformance settings for preprocessor\n"
+#endif
 #ifdef _WIN32
 	    "\t-y  set symbol search path\n"
 #endif

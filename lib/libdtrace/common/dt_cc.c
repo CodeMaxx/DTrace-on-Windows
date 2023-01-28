@@ -114,6 +114,7 @@
 #include <dt_impl.h>
 #ifdef _WIN32
 #include <dt_etw_trace.h>
+#include <cpp.h>
 #endif
 
 static const dtrace_diftype_t dt_void_rtype = {
@@ -1903,7 +1904,47 @@ dt_reduce(dtrace_hdl_t *dtp, dt_version_t v)
 	return (0);
 }
 
+#ifdef _WIN32
+
 /*
+ * Sets flags to pass to ucpp preprocessor
+ *
+ * Return values:
+ * 0  on success
+ * 1  on semantic error (redefinition of a special macro, for instance)
+ * 2  on syntaxic error (unknown options for instance)
+ */
+int dt_parse_preproc_opt(int argc, char* argv[], struct lexer_state* ls)
+{
+	int i, ret = 0;
+
+	ls->flags = DEFAULT_CPP_FLAGS & ~LINE_NUM;
+
+	init_tables(ls->flags & HANDLE_ASSERTIONS);
+	init_include_path(0);
+
+	for (i = 0; i < argc; i++) {
+		if (argv[i][0] == '-' && argv[i][1] == 'D') {
+			ret = ret || define_macro(ls, argv[i] + 2);
+		}
+
+		if (argv[i][0] == '-' && argv[i][1] == 'U') {
+			ret = ret || undef_macro(ls, argv[i] + 2);
+		}
+
+		if (argv[i][0] == '-' && argv[i][1] == 'I') {
+			add_incpath(argv[i][2] ? argv[i] + 2 : argv[i + 1]);
+		}
+	}
+
+	return ret;
+}
+
+#endif
+
+/*
+ * Windows only - Preprocess input file with built-in ucpp preprocessor
+ *
  * Fork and exec the cpp(1) preprocessor to run over the specified input file,
  * and return a FILE handle for the cpp output.  We use the /dev/fd filesystem
  * here to simplify the code by leveraging file descriptor inheritance.
@@ -1912,8 +1953,66 @@ static FILE *
 dt_preproc(dtrace_hdl_t *dtp, FILE *ifp)
 {
 #ifdef _WIN32
-	/* This is to be implemented for Win32 targets */
+	int r, fr = 0;
+	struct lexer_state ls;
+	FILE* ofp = tmpfile();
+	int argc = dtp->dt_cpp_argc;
+	char** argv = malloc(sizeof(char*) * (argc + 1));
+
+	if (argv == NULL || ofp == NULL) {
+		(void)dt_set_errno(dtp, errno);
+		goto err;
+	}
+
+	init_cpp();
+
+	init_lexer_state(&ls);
+
+	bcopy(dtp->dt_cpp_argv, argv, sizeof(char*) * argc);
+	argv[argc] = NULL;
+
+	if ((r = dt_parse_preproc_opt(argc, argv, &ls)) != 0) {
+		goto err;
+	}
+
+	emit_output = ls.output = ofp;
+
+	ls.input = ifp;
+
+	HANDLE hFile = (HANDLE)_get_osfhandle(_fileno(ifp));
+	TCHAR fileName[MAX_PATH + 1];
+
+	if (GetFinalPathNameByHandle(hFile, fileName, MAX_PATH + 1, 0) == 0) {
+		goto err;
+	}
+
+	set_init_filename(fileName, 1);
+
+	enter_file(&ls, ls.flags);
+
+	while ((r = cpp(&ls)) < CPPERR_EOF) {
+		fr = fr || (r > 0);
+	}
+
+	fr = fr || check_cpp_errors(&ls);
+
+	free_lexer_state(&ls);
+	wipeout();
+
+	free(argv);
+
+	if (fr) {
+		goto err;
+	}
+
+	(void)fflush(ofp);
+	(void)fseek(ofp, 0, SEEK_SET);
+	return (ofp);
+
+err:
+	(void)fclose(ofp);
 	return (NULL);
+
 #else
 	int argc = dtp->dt_cpp_argc;
 	char **argv = malloc(sizeof (char *) * (argc + 5));
