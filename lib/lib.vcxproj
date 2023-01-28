@@ -54,7 +54,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PreprocessorDefinitions>YY_USE_PROTOS;YY_NEVER_INTERACTIVE;__STDC_VERSION__=199901L;__STDC_WANT_SECURE_LIB__=1;_LITTLE_ENDIAN=1;BYTE_ORDER=_LITTLE_ENDIAN;_WINSOCK_DEPRECATED_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_USRDLL;_CRT_NON_CONFORMING_SWPRINTFS;WIN32_LEAN_AND_MEAN=1;_WIN32_WINNT=0x0A00;WINVER=0x0A00;WINNT=1;NTDDI_VERSION=0x0A000000;_WINDOWS;MY_ZCALLOC</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)libctf\common;$(ProjectDir)libz;$(ProjectDir)libdtrace\common;$(ProjectDir)libdtrace\compat\win32;$(ProjectDir)libdtrace\compat\win32\inc;$(IntDir)\libdtrace\compat\win32\prebuilt;$(ProjectDir)..\sys\dev\dtrace\x86;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)libctf\common;$(ProjectDir)libz;$(ProjectDir)libdtrace\common;$(ProjectDir)libdtrace\compat\win32;$(ProjectDir)libdtrace\compat\win32\inc;$(IntDir)\libdtrace\compat\win32\prebuilt;$(ProjectDir)ucpp;$(ProjectDir)..\sys\dev\dtrace\x86;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4274</DisableSpecificWarnings>
@@ -211,6 +211,15 @@
       <PreprocessorDefinitions Condition="'$(Platform)'=='ARM64'">DTRACE_CTF=typeinfo\dtrace.arm64.ctf</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Platform)'=='x64'">DTRACE_CTF=typeinfo\dtrace.amd64.ctf</PreprocessorDefinitions>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+	  <ClCompile Include="ucpp\assert.c" />
+	  <ClCompile Include="ucpp\cpp.c" />
+	  <ClCompile Include="ucpp\eval.c" />
+	  <ClCompile Include="ucpp\lexer.c" />
+	  <ClCompile Include="ucpp\macro.c" />
+	  <ClCompile Include="ucpp\mem.c" />
+	  <ClCompile Include="ucpp\nhash.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
