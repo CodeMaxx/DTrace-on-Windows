@@ -32,8 +32,8 @@
 #include <string.h>
 #include <stddef.h>
 #include <limits.h>
-#include "ucppi.h"
 #include "mem.h"
+#include "ucppi.h"
 #ifdef UCPP_MMAP
 #include <unistd.h>
 #include <sys/types.h>

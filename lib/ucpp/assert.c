@@ -33,8 +33,8 @@
 #include <stddef.h>
 #include <limits.h>
 #include <time.h>
-#include "ucppi.h"
 #include "mem.h"
+#include "ucppi.h"
 #include "nhash.h"
 
 /*

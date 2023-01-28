@@ -32,8 +32,8 @@
 #include <string.h>
 #include <setjmp.h>
 #include <limits.h>
-#include "ucppi.h"
 #include "mem.h"
+#include "ucppi.h"
 
 JMP_BUF eval_exception;
 long eval_line;

@@ -32,8 +32,8 @@
 #include <string.h>
 #include <stddef.h>
 #include <limits.h>
-#include "ucppi.h"
 #include "mem.h"
+#include "ucppi.h"
 #include "nhash.h"
 
 #define UNREFERENCED_PARAMETER(P)			(P)
