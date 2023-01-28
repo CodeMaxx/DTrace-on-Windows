@@ -1946,7 +1946,7 @@ int dt_parse_preproc_opt(int argc, char* argv[], struct lexer_state* ls)
  * Windows only - Preprocess input file with built-in ucpp preprocessor
  *
  * Fork and exec the cpp(1) preprocessor to run over the specified input file,
- * and return a FILE handle for the cpp output.  We use the /dev/fd filesystemdt
+ * and return a FILE handle for the cpp output.  We use the /dev/fd filesystem
  * here to simplify the code by leveraging file descriptor inheritance.
  */
 static FILE *

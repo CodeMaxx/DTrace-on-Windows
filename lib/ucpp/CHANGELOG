@@ -5,8 +5,7 @@ Changes by Akash Trehan for DTrace on Windows:
 * Undefine UCPP_MMAP flag in tune.h
 * Rename CHAR and CONTEXT tokens enum to DT_CHAR and DT_CONTEXT to
   avoid conflict with existing definitions with the same name
-* Remove Makefile and add sources file
-* Remove .gitignore
+* Remove Makefile, .gitignore
 
 ucpp-1.3.2
 * Fixed Issue 8, Included files missing  a "terminating carriage
