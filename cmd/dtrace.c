@@ -1782,13 +1782,9 @@ main(int argc, char *argv[])
 				break;
 
 			case 'H':
-#ifdef _WIN32
-				return (usage(stderr));
-#else
 				if (dtrace_setopt(g_dtp, "cpphdrs", 0) != 0)
 					dfatal("failed to set -H");
 				break;
-#endif
 
 			case 'i':
 				dcp = &g_cmdv[g_cmdc++];
@@ -1871,13 +1867,9 @@ main(int argc, char *argv[])
 				break;
 
 			case 'X':
-#ifdef _WIN32
-				return (usage(stderr));
-#else
 				if (dtrace_setopt(g_dtp, "stdc", optarg) != 0)
 					dfatal("failed to set -X %s", optarg);
 				break;
-#endif
 
 			case 'y':
 				if (dtrace_setopt(g_dtp, "sympath", optarg) != 0)
