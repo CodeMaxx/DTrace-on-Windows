@@ -11,6 +11,9 @@ steps:
     verbosity: 'Verbose'
     alertWarningLevel: 'High'
 
+- task: PowerShell@2
+  inputs:
+    filePath: 'releng\Get-ExternalTools.ps1'
 - task: VSBuild@1
   inputs:
     solution: '**\*.sln'
