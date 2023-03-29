@@ -4,10 +4,6 @@ trigger:
 pool:
   vmImage: windows-latest
 
-variables:
-  BuildPlatform: 'x64'
-  BuildConfiguration: 'Release'
-
 steps:
 - task: PowerShell@2
   inputs:
@@ -22,7 +18,8 @@ steps:
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: '**\build\**'
+    Contents: '**\build\**
+    !**\tmp\**\*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
