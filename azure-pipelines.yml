@@ -5,6 +5,12 @@ pool:
   vmImage: windows-latest
 
 steps:
+- task: ComponentGovernanceComponentDetection@0
+  inputs:
+    scanType: 'Register'
+    verbosity: 'Verbose'
+    alertWarningLevel: 'High'
+
 - task: VSBuild@1
   inputs:
     solution: '**\*.sln'
