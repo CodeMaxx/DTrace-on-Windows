@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json.schemastore.org/component-detection-manifest.json",
+    "Registrations": [
+        {
+            "Component": {
+                "Type": "git",
+                "git": {
+                    "repositoryUrl": "https://github.com/opendtrace/opendtrace",
+                    "commitHash": "385fe75e3a186975eb8beace965fa67f229da67e"
+                }
+            }
+        },
+        {
+            "Component": {
+                "Type": "git",
+                "git": {
+                    "repositoryUrl": "https://github.com/lpsantil/ucpp",
+                    "commitHash": "3e62f13c6e786d2c8eff38fbfd1da4c2ffac4a53"
+                }
+            }
+        }
+    ]
+}
