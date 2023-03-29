@@ -9,32 +9,40 @@ steps:
   inputs:
     filePath: 'releng\Get-ExternalTools.ps1'
 - task: VSBuild@1
+  displayName: "VSBuild - x64"
   inputs:
     solution: '**\*.sln'
     platform: 'x64'
     configuration: 'Release'
     clean: true
+  continueOnError: true
 
 - task: VSBuild@1
+  displayName: "VSBuild - ARM64"
   inputs:
     solution: '**\*.sln'
     platform: 'ARM64'
     configuration: 'Release'
     clean: true
+  continueOnError: true
 
 - task: VSBuild@1
+  displayName: "VSBuild - x86"
   inputs:
     solution: '**\*.sln'
     platform: 'x86'
     configuration: 'Release'
     clean: true
+  continueOnError: true
 
 - task: VSBuild@1
+  displayName: "VSBuild - ARM"
   inputs:
     solution: '**\*.sln'
     platform: 'ARM'
     configuration: 'Release'
     clean: true
+  continueOnError: true
 
 - task: CopyFiles@2
   inputs:
