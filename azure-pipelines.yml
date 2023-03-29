@@ -10,7 +10,6 @@ steps:
     solution: '**\*.sln'
     platform: 'x64'
     configuration: 'Release'
-    vsVersion: '17.0'
     clean: true
 
 - task: PublishBuildArtifacts@1
