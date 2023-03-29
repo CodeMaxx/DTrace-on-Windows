@@ -8,7 +8,8 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '**\*.sln'
-    msbuildArgs: '/p:Configuration=Release /p:Platform="Any CPU"'
+    platform: 'x64'
+    configuration: 'Release'
     vsVersion: '17.0'
     clean: true
 
