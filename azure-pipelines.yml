@@ -6,6 +6,7 @@ pool:
 
 steps:
 - task: PowerShell@2
+  displayName: "Get External Tools"
   inputs:
     filePath: 'releng\Get-ExternalTools.ps1'
 - task: VSBuild@1
@@ -27,7 +28,6 @@ steps:
 
 - task: CopyFiles@2
   displayName: "Copy output files"
-  condition: succeededOrFailed()
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
     Contents: |
@@ -43,6 +43,7 @@ steps:
     publishLocation: 'Container'
 
 - task: ComponentGovernanceComponentDetection@0
+  displayName: "Component Governance"
   inputs:
     scanType: 'Register'
     verbosity: 'Verbose'
