@@ -26,6 +26,8 @@ steps:
     clean: true
 
 - task: CopyFiles@2
+  displayName: "Copy output files"
+  condition: succeededOrFailed()
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
     Contents: |
@@ -34,9 +36,10 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
+  displayName: "Publish output files"
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
+    ArtifactName: 'DTrace'
     publishLocation: 'Container'
 
 - task: ComponentGovernanceComponentDetection@0
