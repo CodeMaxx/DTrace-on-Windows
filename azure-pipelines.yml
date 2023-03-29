@@ -43,7 +43,7 @@ steps:
     publishLocation: 'Container'
 
 - task: ComponentGovernanceComponentDetection@0
-  displayName: "Component Governance"
+  displayName: "Component Governance Detection"
   inputs:
     scanType: 'Register'
     verbosity: 'Verbose'
