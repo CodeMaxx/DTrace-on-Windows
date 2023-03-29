@@ -15,6 +15,27 @@ steps:
     configuration: 'Release'
     clean: true
 
+- task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    platform: 'ARM64'
+    configuration: 'Release'
+    clean: true
+
+- task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    platform: 'x86'
+    configuration: 'Release'
+    clean: true
+
+- task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    platform: 'ARM'
+    configuration: 'Release'
+    clean: true
+
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
