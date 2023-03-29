@@ -15,34 +15,15 @@ steps:
     platform: 'x64'
     configuration: 'Release'
     clean: true
-  continueOnError: true
 
 - task: VSBuild@1
   displayName: "VSBuild - ARM64"
+  condition: succeededOrFailed()
   inputs:
     solution: '**\*.sln'
     platform: 'ARM64'
     configuration: 'Release'
     clean: true
-  continueOnError: true
-
-- task: VSBuild@1
-  displayName: "VSBuild - x86"
-  inputs:
-    solution: '**\*.sln'
-    platform: 'x86'
-    configuration: 'Release'
-    clean: true
-  continueOnError: true
-
-- task: VSBuild@1
-  displayName: "VSBuild - ARM"
-  inputs:
-    solution: '**\*.sln'
-    platform: 'ARM'
-    configuration: 'Release'
-    clean: true
-  continueOnError: true
 
 - task: CopyFiles@2
   inputs:
